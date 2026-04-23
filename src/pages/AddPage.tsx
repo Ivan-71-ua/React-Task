@@ -1,48 +1,59 @@
-import { useState } from "react";
+import { useCallback, useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import type { Exam } from "../types/Exam";
 
 interface AddPageProps {
-    onAddExam: (newExam: {
-        subject: string;
-        teacher: string;
-        examDate: string;
-        groupCode: string;
-    }) => void;
+    onAddExam: (newExam: Omit<Exam, "id">) => void;
 }
 
 const AddPage = ({ onAddExam }: AddPageProps) => {
-    const [subject, setSubject] = useState("");
-    const [teacher, setTeacher] = useState("");
-    const [examDate, setExamDate] = useState("");
-    const [groupCode, setGroupCode] = useState("");
+    const [subject, setSubject] = useState<string>("");
+    const [teacher, setTeacher] = useState<string>("");
+    const [examDate, setExamDate] = useState<string>("");
+    const [groupCode, setGroupCode] = useState<string>("");
 
     const navigate = useNavigate();
+    const subjectInputRef = useRef<HTMLInputElement | null>(null);
 
-    const handleClear = () => {
+    const handleClear = useCallback(() => {
         setSubject("");
         setTeacher("");
         setExamDate("");
         setGroupCode("");
-    };
+        subjectInputRef.current?.focus();
+    }, []);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const handleSubmit = useCallback(
+        (event: FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
 
-        if (!subject || !teacher || !examDate || !groupCode) {
-            alert("Будь ласка, заповніть усі поля.");
-            return;
-        }
+            const normalizedSubject = subject.trim();
+            const normalizedTeacher = teacher.trim();
+            const normalizedExamDate = examDate.trim();
+            const normalizedGroupCode = groupCode.trim();
 
-        onAddExam({
-            subject,
-            teacher,
-            examDate,
-            groupCode
-        });
+            if (
+                !normalizedSubject ||
+                !normalizedTeacher ||
+                !normalizedExamDate ||
+                !normalizedGroupCode
+            ) {
+                alert("Будь ласка, заповніть усі поля.");
+                return;
+            }
 
-        handleClear();
-        navigate("/items");
-    };
+            onAddExam({
+                subject: normalizedSubject,
+                teacher: normalizedTeacher,
+                examDate: normalizedExamDate,
+                groupCode: normalizedGroupCode
+            });
+
+            handleClear();
+            navigate("/items");
+        },
+        [subject, teacher, examDate, groupCode, onAddExam, handleClear, navigate]
+    );
 
     return (
         <div className="page">
@@ -58,6 +69,7 @@ const AddPage = ({ onAddExam }: AddPageProps) => {
                             Предмет
                         </label>
                         <input
+                            ref={subjectInputRef}
                             className="input"
                             id="subject"
                             type="text"
@@ -113,7 +125,11 @@ const AddPage = ({ onAddExam }: AddPageProps) => {
                             Додати екзамен
                         </button>
 
-                        <button className="secondary-button" type="button" onClick={handleClear}>
+                        <button
+                            className="secondary-button"
+                            type="button"
+                            onClick={handleClear}
+                        >
                             Очистити
                         </button>
                     </div>
