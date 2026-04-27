@@ -1,18 +1,16 @@
 import { useCallback, useRef, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Exam } from "../types/Exam";
+import { addExam } from "../store/examsSlice";
+import { useAppDispatch } from "../store/hooks";
 
-interface AddPageProps {
-    onAddExam: (newExam: Omit<Exam, "id">) => void;
-}
-
-const AddPage = ({ onAddExam }: AddPageProps) => {
+const AddPage = () => {
     const [subject, setSubject] = useState<string>("");
     const [teacher, setTeacher] = useState<string>("");
     const [examDate, setExamDate] = useState<string>("");
     const [groupCode, setGroupCode] = useState<string>("");
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const subjectInputRef = useRef<HTMLInputElement | null>(null);
 
     const handleClear = useCallback(() => {
@@ -42,20 +40,23 @@ const AddPage = ({ onAddExam }: AddPageProps) => {
                 return;
             }
 
-            onAddExam({
-                subject: normalizedSubject,
-                teacher: normalizedTeacher,
-                examDate: normalizedExamDate,
-                groupCode: normalizedGroupCode
-            });
+            dispatch(
+                addExam({
+                    subject: normalizedSubject,
+                    teacher: normalizedTeacher,
+                    examDate: normalizedExamDate,
+                    groupCode: normalizedGroupCode
+                })
+            );
 
             handleClear();
             navigate("/items");
         },
-        [subject, teacher, examDate, groupCode, onAddExam, handleClear, navigate]
+        [subject, teacher, examDate, groupCode, dispatch, handleClear, navigate]
     );
 
     console.log("RENDER AddPage");
+
     return (
         <div className="page">
             <div className="form-card">

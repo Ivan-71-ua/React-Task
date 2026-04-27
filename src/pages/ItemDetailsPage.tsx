@@ -1,12 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import type { Exam } from "../types/Exam";
+import { useAppSelector } from "../store/hooks";
 
-interface ItemDetailsPageProps {
-    exams: Exam[];
-}
-
-const ItemDetailsPage = ({ exams }: ItemDetailsPageProps) => {
+const ItemDetailsPage = () => {
     const { id } = useParams();
+    const exams = useAppSelector((state) => state.exams.exams);
 
     const exam = exams.find((item) => item.id === Number(id));
 
@@ -16,8 +13,7 @@ const ItemDetailsPage = ({ exams }: ItemDetailsPageProps) => {
         return (
             <div className="page">
                 <h1>Екзамен не знайдено</h1>
-                <p>Запису з таким id не існує.</p>
-                <Link to="/items" className="details-link">
+                <Link to="/items" className="back-link">
                     Повернутися до списку
                 </Link>
             </div>
@@ -26,15 +22,19 @@ const ItemDetailsPage = ({ exams }: ItemDetailsPageProps) => {
 
     return (
         <div className="page">
-            <h1>Деталі екзамену</h1>
-            <p><strong>ID:</strong> {exam.id}</p>
-            <p><strong>Предмет:</strong> {exam.subject}</p>
-            <p><strong>Викладач:</strong> {exam.teacher}</p>
-            <p><strong>Дата складання:</strong> {exam.examDate}</p>
-            <p><strong>Шифр групи:</strong> {exam.groupCode}</p>
+            <h1>{exam.subject}</h1>
+            <p>
+                <strong>Викладач:</strong> {exam.teacher}
+            </p>
+            <p>
+                <strong>Дата складання:</strong> {exam.examDate}
+            </p>
+            <p>
+                <strong>Шифр групи:</strong> {exam.groupCode}
+            </p>
 
-            <Link to="/items" className="details-link">
-                Назад до списку
+            <Link to="/items" className="back-link">
+                Повернутися до списку
             </Link>
         </div>
     );

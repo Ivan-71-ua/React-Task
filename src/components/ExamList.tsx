@@ -8,7 +8,7 @@ interface ExamListProps {
 
 const ExamList = ({ exams }: ExamListProps) => {
 
-    console.log("RENDER ExamList");
+    console.log("RENDER ExamList", exams.length);
     if (exams.length === 0) {
         return <p>Нічого не знайдено.</p>;
     }

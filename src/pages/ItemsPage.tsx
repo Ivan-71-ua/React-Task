@@ -1,13 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ExamList from "../components/ExamList";
 import SearchBar from "../components/SearchBar";
-import type { Exam } from "../types/Exam";
+import { useAppSelector } from "../store/hooks";
 
-interface ItemsPageProps {
-    exams: Exam[];
-}
-
-const ItemsPage = ({ exams }: ItemsPageProps) => {
+const ItemsPage = () => {
+    const exams = useAppSelector((state) => state.exams.exams);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -41,6 +38,7 @@ const ItemsPage = ({ exams }: ItemsPageProps) => {
     }, [exams, searchQuery]);
 
     console.log("RENDER ItemsPage");
+
     return (
         <div className="page">
             <h1>Список екзаменів</h1>
