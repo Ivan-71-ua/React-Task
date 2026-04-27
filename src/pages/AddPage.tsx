@@ -55,6 +55,7 @@ const AddPage = ({ onAddExam }: AddPageProps) => {
         [subject, teacher, examDate, groupCode, onAddExam, handleClear, navigate]
     );
 
+    console.log("RENDER AddPage");
     return (
         <div className="page">
             <div className="form-card">

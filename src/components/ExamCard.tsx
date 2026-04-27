@@ -7,6 +7,8 @@ interface ExamCardProps {
 }
 
 const ExamCard = ({ exam }: ExamCardProps) => {
+
+    console.log("RENDER ExamCard", exam.id);
     return (
         <li className="list-item">
             <h3>{exam.subject}</h3>

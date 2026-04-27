@@ -8,6 +8,8 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ value, onChange, onClear, inputRef }: SearchBarProps) => {
+
+    console.log("RENDER SearchBar");
     return (
         <div className="search-box">
             <input

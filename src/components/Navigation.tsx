@@ -2,6 +2,8 @@ import { memo } from "react";
 import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
+
+    console.log("RENDER Navigation");
     return (
         <nav className="nav">
             <NavLink to="/" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>

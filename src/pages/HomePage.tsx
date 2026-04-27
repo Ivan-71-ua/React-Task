@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
+
+    console.log("RENDER HomePage");
     return (
         <div className="page">
             <h1>Система обліку екзаменів</h1>

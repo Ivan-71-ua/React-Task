@@ -63,6 +63,7 @@ class ClassItemsPage extends PureComponent<ClassItemsPageProps, ClassItemsPageSt
     }
 
     render() {
+        console.log("RENDER ClassItemsPage");
         const { searchQuery } = this.state;
         const filteredExams = this.getFilteredExams();
 

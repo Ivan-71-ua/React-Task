@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 const AboutPage = () => {
+
+    console.log("RENDER AboutPage");
     return (
         <div className="page">
             <h1>Про додаток</h1>

@@ -10,6 +10,8 @@ const ItemDetailsPage = ({ exams }: ItemDetailsPageProps) => {
 
     const exam = exams.find((item) => item.id === Number(id));
 
+    console.log("RENDER ItemDetailsPage", id);
+
     if (!exam) {
         return (
             <div className="page">

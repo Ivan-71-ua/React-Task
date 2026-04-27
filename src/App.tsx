@@ -29,6 +29,7 @@ const App = () => {
         });
     }, []);
 
+    console.log("RENDER App");
     return (
         <div className="app">
             <Navigation />

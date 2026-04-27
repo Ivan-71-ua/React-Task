@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 const NotFoundPage = () => {
+
+    console.log("RENDER NotFoundPage");
     return (
         <div className="page">
             <h1>404</h1>

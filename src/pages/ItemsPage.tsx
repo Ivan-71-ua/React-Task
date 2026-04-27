@@ -40,6 +40,7 @@ const ItemsPage = ({ exams }: ItemsPageProps) => {
         });
     }, [exams, searchQuery]);
 
+    console.log("RENDER ItemsPage");
     return (
         <div className="page">
             <h1>Список екзаменів</h1>
